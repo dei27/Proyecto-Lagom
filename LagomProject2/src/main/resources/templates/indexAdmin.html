@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="">
+<meta name="author" content="Deivi Campos">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lagom</title>
+<link rel="stylesheet"th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" />
+<script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.min.js}" defer></script>
+<script th:src="@{/webjars/bootstrap/5.2.3/js/popper.min.js}" defer></script>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+<link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+</head>
+<body class="bodyUsuario">
+	<header>
+		<nav class="navbar bg-body-tertiary">
+		  <div class="container-fluid">
+		    <a class="navbar-brand" th:href="@{/admin}">L A G O M</a>
+		    <button class="navbar-toggler border-0 bg-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+		      <span class="navbar-toggler-icon fs-4"></span>
+		    </button>
+		    <div class="offcanvas offcanvas-end w-25 text-center" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+		      <div class="offcanvas-header">
+		        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú</h5>
+		        <button type="button" class="btn-close text-bg-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		      </div>
+		      <div class="offcanvas-body">
+		        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+		          <li class="nav-item mb-3">
+		            <a class="btn w-100 p-3 btnNuevaTarea" th:href="@{/admin/formTarea}">Nueva Tarea</a>
+		          </li>
+		          <li class="nav-item mb-3">
+		            <form th:action="@{/logout}" method="post">
+		         		<button type="submit" class="btn w-100 p-3 btnCerrar">Cerrar sesión</button>
+		        	</form>
+		          </li>
+		        </ul>
+		      </div>
+		    </div>
+		  </div>
+		</nav>
+	</header>
+	<div class="container-fluid p-5">
+		<div class="row">
+			<div class="col-12 mb-3 blockPendiente">
+				<h2 class="mt-3 text-start titulosTarea">Pendientes</h2>
+				<div class="row justify-content-center">
+					<div class="col-auto align-self-center"
+						th:each="tarea : ${tareasPendientes}">
+						<div class="card text-center mb-3"
+							th:classappend="'valor-'+${tarea.valorPuntos}">
+							<div class="card-header text-white"><i class="bi bi-pin-fill"></i></div>
+							<div class="card-body">
+								<h6 class="card-title" th:text="${tarea.nombre}"></h6>
+								<!-- 						    <details> -->
+								<!-- 							<summary>Descripción</summary> -->
+								<!-- 							<p class="card-text" th:text="${tarea.descripcion}"></p> -->
+								<!-- 							</details> -->
+								<div class="row">
+									<div class="col-4 text-start">
+										<a href="#" data-bs-toggle="modal"
+											th:data-bs-target="'#exampleModal-' + ${tarea.id}"
+											class="btn" th:classappend="btnHacerTarea"><i
+											class="bi bi-trash text-white"></i></a>
+									</div>
+									<div class="col-4 text-center">
+										<p class="card-text" th:text="${tarea.valorPuntos} + ' pts'"></p>
+									</div>
+									<div class="col-4 text-end">
+										<a href="#" data-bs-toggle="modal"
+											th:data-bs-target="'#exampleModalUpdate-' + ${tarea.id}"
+											class="btn" th:classappend="btnHacerTarea"><i
+											class="bi bi-pencil-fill text-white"></i></a>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer"
+								th:text="${#dates.format(tarea.fechaCreacion, 'dd-MM-yyyy')}"></div>
+						</div>
+						<!-- Modal actualizar -->
+						<div class="modal fade" th:id="'exampleModalUpdate-' + ${tarea.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered modal-md">
+								<div class="modal-content text-center">
+									<div class="modal-header text-bg-dark">
+										<h4 class="modal-title" id="exampleModalLabel"
+											th:text="'Detalles de Tarea '+${tarea.id}"></h4>
+										<button type="button" class="btn-close text-bg-secondary"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form th:action="@{/admin/actualizar/{id}(id=${tarea.id})}"
+											method="POST">
+											<input type="hidden" th:name="${_csrf.parameterName}"
+												th:value="${_csrf.token}" />
+											<div class="form-group">
+												<div class="form-floating mb-3">
+													<input type="text" class="form-control text-center" id="nombre" name="nombre" placeholder="nombre" th:value="${tarea.nombre}">
+													<label for="nombre">Nombre</label>
+												</div>
+												<div class="form-floating mb-3">
+													<textarea id="descripcion" name="descripcion" th:text="${tarea.descripcion}" placeholder="descripcion" class="form-control h-100"></textarea>
+													<label for="descripcion">Descripción</label>
+												</div>
+												<div class="form-floating mb-3">
+													<input type="number" class="form-control text-center" id="valorPuntos" name="valorPuntos" placeholder="puntos" th:value="${tarea.valorPuntos}" min="1" max="5">
+													<label for="valorPuntos">Valor</label>
+												</div>
+											</div>
+
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Cerrar</button>
+												<button type="submit" class="btn btn-danger">Actualizar</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Modal elimiar -->
+						<div class="modal fade" th:id="'exampleModal-' + ${tarea.id}"
+							tabindex="-1" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered modal-sm">
+								<div class="modal-content text-center">
+									<div class="modal-header text-bg-dark">
+										<h4 class="modal-title" id="exampleModalLabel"
+											th:text="'Detalles de Tarea '+${tarea.id}"></h4>
+										<button type="button" class="btn-close text-bg-secondary"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form th:action="@{/admin/{id}(id=${tarea.id})}" method="POST">
+											<input type="hidden" th:name="${_csrf.parameterName}"
+												th:value="${_csrf.token}" />
+											<div class="form-group"></div>
+											<label for="descripcion">Descripción:</label>
+											<p th:text="${tarea.descripcion}"></p>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Cerrar</button>
+												<button type="submit" class="btn btn-primary">Eliminar</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-12 blockPendiente mb-3">
+				<h2 class="mt-3 titulosTarea">En Progreso</h2>
+				<div class="row justify-content-center">
+					<div class="col-auto align-self-center"
+						th:each="tareap : ${tareasEnProgreso}">
+						<div class="card text-center mb-3"
+							th:classappend="'valor-'+${tareap.valorPuntos}">
+							<div class="card-header text-white"><i class="bi bi-pin-fill"></i></div>
+							<div class="card-body">
+								<h6 class="card-title" th:text="${tareap.nombre}"></h6>
+								<!-- 						    <details> -->
+								<!-- 							<summary>Descripción</summary> -->
+								<!-- 							<p class="card-text" th:text="${tarea.descripcion}"></p> -->
+								<!-- 							</details> -->
+<!-- 							<p class="card-text" th:text="'Valor: ' + ${tareap.valorPuntos}"></p> -->
+								<a href="#" data-bs-toggle="modal"th:data-bs-target="'#exampleModal-' + ${tareap.id}"class="btn" th:classappend="btnHacerTarea"><i class="bi bi-file-text-fill"></i></a>
+							</div>
+							<div class="card-footer"
+								th:text="${#dates.format(tareap.fechaCreacion, 'dd-MM-yyyy')}"></div>
+						</div>
+						<!-- Modal observar -->
+						<div class="modal fade" th:id="'exampleModal-' + ${tareap.id}"
+							tabindex="-1" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered modal-sm">
+								<div class="modal-content text-center">
+									<div class="modal-header text-bg-dark">
+										<h4 class="modal-title" id="exampleModalLabel"
+											th:text="'Detalles de Tarea '+${tareap.id}"></h4>
+										<button type="button" class="btn-close text-bg-secondary"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form th:action="@{/admin/{id}(id=${tareap.id})}" method="POST">
+											<input type="hidden" th:name="${_csrf.parameterName}"
+												th:value="${_csrf.token}" />
+											<label for="descripcion">Descripción:</label>
+											<p th:text="${tareap.descripcion}"></p>
+											<p th:text="'Valor: '+${tareap.valorPuntos}+' puntos'"></p>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Cerrar</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-12 blockPendiente">
+				<h2 class="mt-3 text-start titulosTarea">Finalizadas</h2>
+				<div class="row justify-content-center">
+					<div class="col-auto"
+						th:each="tareaf : ${tareasFinalizadas}">
+						<div class="card text-center mb-3"
+							th:classappend="'valor-'+${tareaf.valorPuntos}">
+							<div class="card-header text-white"><i class="bi bi-pin-fill"></i></div>
+							<div class="card-body">
+								<h6 class="card-title" th:text="${tareaf.nombre}"></h6>
+								<!-- 						    <details> -->
+								<!-- 							<summary>Descripción</summary> -->
+								<!-- 							<p class="card-text" th:text="${tarea.descripcion}"></p> -->
+								<!-- 							</details> -->
+								<div class="row">
+									<div class="col-6">
+										<p class="card-text" th:text="${tareaf.valorPuntos} + ' pts'"></p>
+									</div>
+									<div class="col-6">
+										<a href="#" data-bs-toggle="modal" th:data-bs-target="'#exampleModal-' + ${tareaf.id}"class="btn" th:classappend="btnHacerTarea"><i class="bi bi-clipboard2-check-fill"></i></a>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer"
+								th:text="${#dates.format(tareaf.fechaCreacion, 'dd-MM-yyyy')}"></div>
+						</div>
+						<!-- Modal actualizar -->
+						<div class="modal fade" th:id="'exampleModal-' + ${tareaf.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered modal-md">
+								<div class="modal-content text-center">
+									<div class="modal-header text-bg-dark">
+										<h4 class="modal-title" id="exampleModalLabel"
+											th:text="'Detalles de Tarea '+${tareaf.id}"></h4>
+										<button type="button" class="btn-close text-bg-secondary"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form th:action="@{/admin/calificar/{id}(id=${tareaf.id})}"
+											method="POST">
+											<input type="hidden" th:name="${_csrf.parameterName}"
+												th:value="${_csrf.token}" />
+											<div class="form-group">
+												<input type="hidden" th:name="${_csrf.parameterName}"th:value="${_csrf.token}" />
+												<label for="descripcion">Descripción:</label>
+												<p th:text="${tareaf.descripcion}"></p>
+												<p th:text="'Valor: '+${tareaf.valorPuntos}+' puntos'"></p>
+											</div>
+											<div class="form-group mb-3">
+												<label for="completa">Completa:</label>
+												<input type="radio" id="completa" name="opcion" value="1" checked>
+												<label for="incompleta">Incompleta:</label>
+												<input type="radio" id="incompleta" name="opcion" value="2">
+												<label for="incompleta">Sin hacer:</label>
+												<input type="radio" id="incompleta" name="opcion" value="0">
+												<input th:value="${tareaf.valorPuntos}" type="number" hidden=true name="puntos">
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Cerrar</button>
+												<button type="submit" class="btn btn-danger">Calificar</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

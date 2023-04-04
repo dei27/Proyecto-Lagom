@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Montserrat+Alternates:ital,wght@0,700;1,300&family=Nunito+Sans&family=Poppins:ital,wght@0,300;0,600;1,500&family=Quicksand:wght@500&family=Raleway:ital,wght@0,200;1,700&family=Water+Brush&display=swap');
+
+
+/* font-family: 'Lato', sans-serif; */
+/* font-family: 'Montserrat Alternates', sans-serif; */
+/* font-family: 'Nunito Sans', sans-serif; */
+/* font-family: 'Poppins', sans-serif; */
+/* font-family: 'Quicksand', sans-serif; */
+/* font-family: 'Raleway', sans-serif; */
+/* font-family: 'Water Brush', cursive; */
+
+:root{
+	--valor1: rgba(87, 135, 201, 0.9);
+	--valor2: rgba(229, 142, 207, 0.9);
+	--valor3: rgba(214, 86, 173, 0.9);
+	--valor4: rgba(151, 194, 228, 0.9);
+	--valor5: rgba(152, 144, 213, 0.9);
+	--valor6: rgba(141, 85, 175, 0.9);
+	--valor7: rgba(233, 191, 227, 0.9);
+	--valor8: rgba(192, 201, 231, 0.9);
+	--valor9: rgba(82, 52, 132, 0.9);
+	--valor10: rgba(166, 14, 101, 0.9);
+	--valor11: rgba(190, 30, 123, 0.9);
+	--valor12: rgba(238, 216, 236, 0.9);
+	--valor13: rgba(244, 244, 244, 0.9);
+	--valor14: rgba(216, 227, 239, 0.9);
+	--valor15: rgba(252, 252, 252, 0.9);
+	--valor16: rgba(186, 108, 212, 0.9);
+	--valor17: rgba(229, 142, 207, 0.2);
+}
+
+*{
+	font-size: 1.15vw;
+	font-family: 'Lato', sans-serif;
+}
+
+/* .blockPendiente{ */
+/* 	background: var(--valor17); */
+/* } */
+
+.navbar-brand{
+	font-family: 'Nunito Sans', sans-serif;
+	font-size: 3vw;
+	color: white;
+}
+
+.offcanvas{
+	background: var(--valor10);
+	color:white;
+}
+
+body,html{
+	height: 100%;
+}
+
+.bodyLogin{
+	background-image: URL("/imgs/fondoLa.webp");
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	overflow: hidden;
+}
+
+.bodyUsuario{
+	background-image: URL("/imgs/fondoLa.webp");
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.bodyUsuario{
+	background-image: URL("/imgs/fondoLa.webp");
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.btnlogin{
+	background: var(--valor10);
+	color:white;
+}
+
+.btnNuevaTarea{
+	background: var(--valor5);
+	color:white;
+	font-size: 1.5vw;
+}
+
+.btnCerrar{
+	background: var(--valor9);
+	color:white;
+	font-size: 1.5vw;
+}
+
+.offcanvas-title{
+	font-size: 1.5vw;
+}
+
+.navbar{
+	background: var(--valor10);
+}
+.valor-1{
+	background: var(--valor1);
+}
+
+.valor-2{
+	background: var(--valor2);
+}
+
+.valor-3{
+	background: var(--valor3);
+}
+
+.valor-4{
+	background: var(--valor4);
+}
+
+.valor-5{
+	background: var(--valor5);
+}
+
+.card-header, .card-footer{
+	background-color: rgba(0,0,0,0.15);
+}
+
+.btnHacerTarea{
+	background-color: rgba(0,0,0,0.2);
+	color:white;
+}
+
+.btnHacerTarea:hover{
+	background-color: rgba(0,0,0,0.5);
+	color:white;
+}
+
+.btnlogin:hover{
+	background-color: rgba(0,0,0,0.5);
+	color: white;
+}
+
+.btnNuevaTarea:hover{
+	background-color: rgba(0,0,0,0.5);
+	color:white;
+}
+
+.btnCerrar:hover{
+	background-color: rgba(0,0,0,0.5);
+	color:white;
+}
+
+.navbar-brand:hover{
+	color: white;
+	text-shadow: 2px 2px 2px black;
+}
+
+.nav-link{
+	color: white;
+	font-size: 1.3vw;
+}

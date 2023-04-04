@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="author" content="Deivi Campos">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lagom</title>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" />
+	<script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.min.js}" defer></script>
+	<script th:src="@{/webjars/bootstrap/5.2.3/js/popper.min.js}" defer></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body class="bodyLogin">
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-6">
+            <div class="card border-0">
+                <div class="card-header text-bg-dark py-3">
+                    <h4 class="card-title text-center">L A G O M</h4>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/login}" method="post">
+                        <div class="form-floating mb-3 py-2">
+                            <input type="email" class="form-control" id="floatingInput" name="email" placeholder="Email">
+                            <label for="floatingInput">Email</label>
+                        </div>
+                        <div class="form-floating mb-3 py-2">
+                            <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
+                            <label for="floatingPassword">Contraseña</label>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-block btnlogin py-3">Ingresar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
