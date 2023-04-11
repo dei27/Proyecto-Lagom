@@ -8,5 +8,5 @@
 
 <p align="center">Con Lagom, puedes crear diferentes tareas, como limpiar el cuarto, cocinar, lavar la ropa, etc, aceptarlas y calificarlas.<p/>
 
-<h6>Puedes ver una demo acá: https://youtu.be/NXPll7Wh9TY </h6>
+<h6 align="center">Puedes ver una demo acá: https://youtu.be/NXPll7Wh9TY </h6>
 
